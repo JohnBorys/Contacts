@@ -38,22 +38,24 @@ class DataManager {
         DataManager.coreDataStackManager.saveMoc()
     }
     
-    func delete(lastName: String) {
-        //        ContactUser().objectID
+    // TODO: - deleting by object ID
+    func delete(objectID: NSManagedObjectID) {
+        
         let context = DataManager.coreDataStackManager.persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<ContactUser> = ContactUser.fetchRequest()
-        fetchRequest.predicate = NSPredicate.init(format: "lastName = %@", lastName)
-        var results: [ContactUser] = []
-        do {
-            results = try DataManager.coreDataStackManager.persistentContainer.viewContext.fetch(fetchRequest)
-        }
-        catch {
-            print("error")
-        }
-        guard let cotact = results.last else {
-            return
-        }
-        context.delete(cotact)
+        let objectID = context.object(with: objectID)
+        //        let fetchRequest: NSFetchRequest<ContactUser> = ContactUser.fetchRequest()
+        //        fetchRequest.predicate = NSPredicate.init(format: "lastName = %@", objectID)
+        //        var results: [ContactUser] = []
+        //        do {
+        //            results = try DataManager.coreDataStackManager.persistentContainer.viewContext.fetch(fetchRequest)
+        //        }
+        //        catch {
+        //            print("error")
+        //        }
+        //        guard let cotact = results.last else {
+        //            return
+        //        }
+        context.delete(objectID)
         DataManager.coreDataStackManager.saveMoc()
         
     }
@@ -69,7 +71,7 @@ class DataManager {
         } else {
             contactUser.photo = nil
         }
-    
+        
         contactUser.emailAddress = emailAddress
         
         

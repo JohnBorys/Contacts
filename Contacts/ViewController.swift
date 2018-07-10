@@ -27,9 +27,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         let cellNib = UINib(nibName: "\(ContactsTableViewCell.self)", bundle: nil)
         contactsTableView.register(cellNib, forCellReuseIdentifier: "\(ContactsTableViewCell.self)")
-    
-    
-    //    topSearchBarConstraint.constant = -56
+        
+        
+        //    topSearchBarConstraint.constant = -56
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,10 +42,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if let destinationViewController = segue.destination as? NewContactViewController {
             destinationViewController.delegate = self
         }
-//        if let dvc = segue.destination as? DetailContactViewController {
-//
-//        }
-       
+        //        if let dvc = segue.destination as? DetailContactViewController {
+        //
+        //        }
+        
     }
     
     
@@ -67,7 +67,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.lastNameOutlet.text = currentUser.lastName
         cell.phoneNumberOutlet.text = currentUser.phoneNumber
         if let contactPhoto = currentUser.photo {
-             cell.userImageOutlet.image = UIImage(data: contactPhoto as Data, scale:1.0)
+            cell.userImageOutlet.image = UIImage(data: contactPhoto as Data, scale:1.0)
         } else {
             cell.userImageOutlet.image = UIImage(named: "user")
         }
@@ -78,9 +78,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
     }
     
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         let segueStorybord = UIStoryboard(name: "Main", bundle: nil)
+        let segueStorybord = UIStoryboard(name: "Main", bundle: nil)
         if let viewController = segueStorybord.instantiateViewController(withIdentifier: "detailContactStorybord") as? DetailContactViewController {
             
             let currentUser = contactUsers[indexPath.row]
@@ -102,7 +102,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         //TODO: - deleting by id
-        DataManager().delete(lastName: self.contactUsers[indexPath.row].lastName ?? "")   // Deleting contact ithem by lastName
+        DataManager().delete(objectID: contactUsers[indexPath.row].objectID)   // Deleting contact ithem by objectID
         
         if editingStyle == .delete {
             self.contactUsers.remove(at: indexPath.row)
