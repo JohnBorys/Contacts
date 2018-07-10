@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     var contactUsers: [ContactUser] = []
     
@@ -16,20 +16,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var topSearchBarConstraint: NSLayoutConstraint!
     @IBOutlet weak var searchBarTextfield: UISearchBar!
     
+    // Search Bar
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty else {
+            contactUsers = DataManager().loadData()
+            contactsTableView.reloadData()
+            return
+        }
+        contactUsers = DataManager().search(bySeatchText: searchText)
+        contactsTableView.reloadData()
+    }
     
-    var array: [String] = []
-    
-    @IBAction func onSearshButton(_ sender: Any) {
-        //topSearchBarConstraint.constant = 0
+    private func setupSearchBar() {
+        searchBarTextfield.delegate = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let cellNib = UINib(nibName: "\(ContactsTableViewCell.self)", bundle: nil)
         contactsTableView.register(cellNib, forCellReuseIdentifier: "\(ContactsTableViewCell.self)")
-        
-        
-        //    topSearchBarConstraint.constant = -56
+        setupSearchBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,10 +48,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if let destinationViewController = segue.destination as? NewContactViewController {
             destinationViewController.delegate = self
         }
-        //        if let dvc = segue.destination as? DetailContactViewController {
-        //
-        //        }
-        
+
     }
     
     
@@ -101,12 +104,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        //TODO: - deleting by id
+
         DataManager().delete(objectID: contactUsers[indexPath.row].objectID)   // Deleting contact ithem by objectID
         
         if editingStyle == .delete {
             self.contactUsers.remove(at: indexPath.row)
-            
         }
         
         tableView.reloadData()

@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -49,18 +48,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Contacts" id="GsE-iF-dSm">
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="9vU-lG-493">
-                                <connections>
-                                    <segue destination="HFB-eH-Tzk" kind="show" id="5FW-Ok-oX1"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="search" id="IJl-8C-qdr">
-                                <connections>
-                                    <action selector="onSearshButton:" destination="BYZ-38-t0r" id="PhM-C9-JAm"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="9vU-lG-493">
+                            <connections>
+                                <segue destination="HFB-eH-Tzk" kind="show" id="5FW-Ok-oX1"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="contactsTableView" destination="XbQ-vd-dbx" id="nha-e6-xzH"/>
