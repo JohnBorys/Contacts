@@ -82,7 +82,7 @@ class DataManager {
     }
     
     
-    func search(bySeatchText name: String) -> [ContactUser] {
+    func search(bySeatchText text: String) -> [ContactUser] {
         let request = NSFetchRequest<ContactUser>(entityName: contactModelEntityName)
         // Sorting
         
@@ -91,7 +91,7 @@ class DataManager {
         
         //filtering
         
-        let filterPredicate = NSPredicate(format: "name contains[c] %@ OR lastName contains[c] %@", name, name)
+        let filterPredicate = NSPredicate(format: "name contains[c] %@ OR lastName contains[c] %@ OR phoneNumber contains[c] %@", text, text, text)
         //       let filterPredicate = NSPredicate(format: "name = %@ OR lastName = %@", name)
         request.predicate = filterPredicate
         

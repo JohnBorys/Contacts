@@ -27,15 +27,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         contactsTableView.reloadData()
     }
     
-    private func setupSearchBar() {
-        searchBarTextfield.delegate = self
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         let cellNib = UINib(nibName: "\(ContactsTableViewCell.self)", bundle: nil)
         contactsTableView.register(cellNib, forCellReuseIdentifier: "\(ContactsTableViewCell.self)")
-        setupSearchBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
